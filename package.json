@@ -1,0 +1,29 @@
+{
+  "name": "pebble-katerwatch",
+  "author": "MakeAwesomeHappen",
+  "license": "AGPL-3.0-or-later",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "pebble-katerwatch",
+    "uuid": "e8cf423a-6e8b-4fbb-b735-6a174e298881",
+    "projectType": "moddable",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "emery",
+      "gabbro"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "messageKeys": [
+      "dummy"
+    ],
+    "resources": {
+      "media": []
+    }
+  }
+}
