@@ -1,0 +1,13 @@
+version: "3"
+
+tasks:
+  debug:
+    desc: Build and install to the Emery emulator
+    cmds:
+      - pebble build
+      - pebble install --emulator emery
+
+  nuke:
+    desc: Kill emulator, clean build artifacts, and wipe emulator state
+    cmds:
+      - pebble kill && pebble clean && pebble wipe
