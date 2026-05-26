@@ -29,9 +29,6 @@
     },
     "messageKeys": [
       "dummy"
-    ],
-    "resources": {
-      "media": []
-    }
+    ]
   }
 }

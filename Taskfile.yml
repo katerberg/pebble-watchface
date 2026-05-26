@@ -1,11 +1,22 @@
 version: "3"
 
 tasks:
+  logs:
+    desc: Stream Emery emulator logs
+    cmds:
+      - pebble logs --emulator emery
+
   debug:
     desc: Build and install to the Emery emulator
     cmds:
       - pebble build
       - pebble install --emulator emery
+
+  debug:logs:
+    desc: Build, install, and stream Emery emulator logs
+    deps: [debug]
+    cmds:
+      - pebble logs --emulator emery
 
   nuke:
     desc: Kill emulator, clean build artifacts, and wipe emulator state

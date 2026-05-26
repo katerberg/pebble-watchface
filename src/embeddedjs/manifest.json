@@ -1,9 +1,29 @@
 {
- 	"include":  [
+	"include": [
 		"$(MODDABLE)/examples/manifest_mod.json",
 		"$(MODDABLE)/examples/manifest_typings.json"
 	],
 	"modules": {
 		"*": "./main"
+	},
+	"resources": {
+		"*-alpha": [
+			{
+				"source": "./assets/AvenirNext-Regular.ttf",
+				"size": 24,
+				"monochrome": true,
+				"blocks": [
+					"Basic Latin"
+				]
+			},
+			{
+				"source": "./assets/AvenirNext-Regular.ttf",
+				"size": 83,
+				"monochrome": true,
+				"blocks": [
+					"Basic Latin"
+				]
+			}
+		]
 	}
 }

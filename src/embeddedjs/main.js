@@ -1,63 +1,45 @@
 import Poco from "commodetto/Poco";
+import parseBMF from "commodetto/parseBMF";
+import parseRLE from "commodetto/parseRLE";
 
-let render = new Poco(screen);
+const render = new Poco(screen);
 
-const timeFont = new render.Font("Bitham-Black", 30);
-const dateFont = new render.Font("Gothic-Bold", 24);
+function getFont(name, size) {
+  const font = parseBMF(new Resource(`${name}-${size}.fnt`));
+  font.bitmap = parseRLE(new Resource(`${name}-${size}-alpha.bm4`));
+  return font;
+}
+
+const timeFont = getFont("AvenirNext-Regular", 83);
 const black = render.makeColor(0, 0, 0);
 const white = render.makeColor(255, 255, 255);
-const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const MONTHS = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
 
-console.log("Time font height:", timeFont.height);
+// Precompute layout positions
+const blockHeight = timeFont.height;
+const timeY = (render.height - blockHeight) / 2;
+
 function draw(event) {
   const now = event.date;
+  console.log("block height", blockHeight);
+  console.log("render height", render.height);
+  console.log("render width", render.width);
+  console.log("time y", timeY);
+
   render.begin();
   render.fillRectangle(white, 0, 0, render.width, render.height);
 
-  // Format time as HH:MM
   const hours = String(now.getHours()).padStart(2, "0");
   const minutes = String(now.getMinutes()).padStart(2, "0");
-  const timeStr = `${hours}:${minutes}`;
 
-  const timeWidth = render.getTextWidth(timeStr, timeFont);
-
+  const hoursWidth = render.getTextWidth(hours, timeFont);
+  const minutesWidth = render.getTextWidth(minutes, timeFont);
+  render.drawText(hours, timeFont, black, (render.width - hoursWidth) / 2, 0);
   render.drawText(
-    timeStr,
+    minutes,
     timeFont,
     black,
-    (render.width - timeWidth) / 2,
-    (render.height - timeFont.height) / 2,
-  );
-  console.log("Date font height:", dateFont.height);
-  console.log("time font height:", timeFont.height);
-
-  // Format date as "Mon Jan 01"
-  const dayName = DAYS[now.getDay()];
-  const monthName = MONTHS[now.getMonth()];
-  const dateStr = `${dayName} ${monthName} ${String(now.getDate()).padStart(2, "0")}`;
-
-  // Draw date below the time
-  const dateWidth = render.getTextWidth(dateStr, dateFont);
-  render.drawText(
-    dateStr,
-    dateFont,
-    black,
-    (render.width - dateWidth) / 2,
-    render.height / 2 + timeFont.height,
+    (render.width - minutesWidth) / 2,
+    blockHeight,
   );
 
   render.end();

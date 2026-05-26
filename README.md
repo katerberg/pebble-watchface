@@ -9,6 +9,9 @@ With [Task](https://taskfile.dev) installed:
 
 ```sh
 task debug                            # build and install on the emery emulator
+task debug:logs                       # build, install, and tail emulator logs
+task debug logs                       # same as debug:logs
+task logs                             # tail emulator logs only
 task nuke                             # kill, clean, and wipe emulator state
 ```
 
@@ -36,7 +39,7 @@ src/embeddedjs/main.js         JavaScript that runs on the watch
 src/embeddedjs/manifest.json   Moddable manifest
 src/pkjs/index.js              PebbleKit JS (phone-side) code
 package.json                   Project metadata (UUID, platforms, resources)
-Taskfile.yml                   CLI tasks (e.g. `task debug`, `task nuke`)
+Taskfile.yml                   CLI tasks (e.g. `task debug`, `task logs`, `task nuke`)
 wscript                        Build rules — usually no need to edit
 ```
 
